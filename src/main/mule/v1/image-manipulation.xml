@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="image-conversion-to-base64-conversion-flow" doc:id="e30e6686-ee6c-4d24-8ddc-78ba56f3d19f" doc:description="Author : Manikanta Nandamuri
+Date : 16-02-2020
+Description : 
+This sub flow converts a png image to a base64 string which you can store it in a DB and elsewhere.">
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="677b71a5-72bc-4e94-ab51-3d8b68646390" mimeType="application/yaml"/>
+		<ee:transform doc:name="Transform Message" doc:id="cc1e7ab7-6b92-4e05-8ba4-96ecd22e2cea" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import toBase64 from dw::core::Binaries
+output application/java
+---
+toBase64(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="37487188-4fbf-43d4-83fb-1b6e519a1515" message="#[payload]"/>
+	</sub-flow>
+</mule>

@@ -1,0 +1,31 @@
+#%RAML 1.0
+title: Image_conversion
+version: v1
+baseUri: http://api.samplehost.com
+/convert-image-to-base64:
+  post:
+    description: |
+    This endpoint can be used to convert image to a base64 format
+    body:
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "message" : "Image have been converted and converted base64 string is "
+              }
+/base64-to-image:
+  post:
+    description: |
+    This endpoint can be used to convert image to a base64 format
+    body:
+    text/plain:
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "message" : "Image have been converted and converted base64 string is :"
+              }
