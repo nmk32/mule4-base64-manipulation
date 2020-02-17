@@ -4,9 +4,6 @@ version: v1
 baseUri: http://api.samplehost.com
 /convert-image-to-base64:
   post:
-    description: |
-    This endpoint can be used to convert image to a base64 format
-    body:
     responses:
       201:
         body:
@@ -15,17 +12,46 @@ baseUri: http://api.samplehost.com
               {
                 "message" : "Image have been converted and converted base64 string is "
               }
-/base64-to-image:
-  post:
-    description: |
-    This endpoint can be used to convert image to a base64 format
+    description: "This API let's you convert image to a base 64"
     body:
-    text/plain:
+      image/png:
+      image/jpeg:
+/convert-base64-to-image:
+  post:
+    responses:
+      201:
+        body:
+          image/png:
+            example: |
+              {
+                "message" : "Your base64 has been converted to image"
+              }
+    description: "This API let's you convert base64 to image"
+    body:
+      text/plain:
+/convert-pdf-to-base64:
+  post:
     responses:
       201:
         body:
           application/json:
             example: |
               {
-                "message" : "Image have been converted and converted base64 string is :"
+                "message" : "Your PDF has been converted to base64 string"
               }
+    description: "This API let's you convert pdf to base64"
+    body:
+      application/pdf:
+/convert-base64-to-pdf:
+  post:
+    responses:
+      201:
+        body:
+          application/pdf:
+            example: |
+              {
+                "message" : "Your base64 converted to pdf"
+              }
+    description: "This API let's you convert pdf to base64"
+    body:
+      text/plain:

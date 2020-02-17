@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	<sub-flow name="pdf-to-base64-conversion-subflow" doc:id="3ca11729-cc1a-44cc-a3cb-3ec668a72cc4" doc:description="Author : Manikanta Nandamuri
+Date : 17-02-2020
+Description : 
+This sub flow converts a pdf  to a base64 string which you can store it in a DB and elsewhere.">
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="e175366b-9f7b-4f59-941e-3a9682aff024" mimeType="application/pdf"/>
+		<ee:transform doc:name="Transform Message" doc:id="fda923a2-d126-44f9-a3cf-3e85f1ed2fd2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import toBase64 from dw::core::Binaries
+output application/java
+---
+toBase64(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="42bc1ab4-1dc7-446b-b7fd-3455aedfd9f7" message='#["PDF has been converted to base64 string"]'/>
+	</sub-flow>
+<sub-flow name="base64-to-pdf-conversion-subflow" doc:id="40fed10c-786f-4c87-88b7-e1cdf1db72e3" doc:description="Author : Manikanta Nandamuri
+Date : 17-02-2020
+Description : 
+This sub flow converts a base64 string to pdf.">
+		<ee:transform doc:name="Transform Message" doc:id="aa906392-7223-4bdd-9f7d-90859afb10d1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import fromBase64 from dw::core::Binaries
+output application/octet-stream
+---
+fromBase64(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="a3f6322e-a811-4710-8876-34815504cf6d" mimeType="application/pdf" />
+		<logger level="INFO" doc:name="Logger" doc:id="af4b7e80-7acf-4673-83aa-22451bef7dca" message='#["PDF base64 string has been converted to PDF"]'/>
+	</sub-flow>
+	
+	</mule>

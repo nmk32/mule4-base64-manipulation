@@ -1,0 +1,33 @@
+{
+  "configs": [
+    "global-error-handler.xml",
+    "v1/image-manipulation.xml",
+    "api.xml",
+    "v1/pdf-manipulation.xml",
+    "global-configuration.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mule4-base64:mule4-base64-manipulation:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.2.2",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/api.raml",
+        "api.xml",
+        "global-configuration.xml",
+        "global-error-handler.xml",
+        "log4j2.xml",
+        "v1/image-manipulation.xml",
+        "v1/pdf-manipulation.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
